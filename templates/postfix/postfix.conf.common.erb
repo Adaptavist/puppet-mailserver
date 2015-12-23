@@ -1,0 +1,9 @@
+alias_database = hash:/etc/aliases
+alias_maps = hash:/etc/aliases
+config_directory = /etc/postfix
+mail_name = Postfix
+mailbox_size_limit = 0
+smtpd_banner = $myhostname ESMTP $mail_name
+append_dot_mydomain = no
+lmtp_host_lookup = native,dns
+smtp_host_lookup = native,dns

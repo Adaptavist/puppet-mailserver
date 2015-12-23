@@ -1,0 +1,7 @@
+#outgoing:{plain}password:1010:12::/home/hosting::
+#incoming:{plain}password:1010:12::/home/hosting::
+<% if @imap_users -%>
+<% @imap_users.each do | user | -%>
+<%= user['name'] %>:{<%= user['encoding'] %>}<%= user['password'] %>:<%= user['uid'] %>:<%= user['gid'] %>::<%= user['home'] %>::
+<% end -%>
+<% end -%>

@@ -1,0 +1,20 @@
+fixtures:
+  repositories:
+    stdlib:
+      repo: "https://github.com/Adaptavist/puppet-stdlib"
+    postfix:
+      repo: 'https://github.com/Adaptavist/puppet-postfix'
+    haproxy:
+      repo: 'https://github.com/Adaptavist/puppet-haproxy'
+    apache:
+      repo: 'https://github.com/Adaptavist/puppet-apache'
+    puppi:
+      repo: 'https://github.com/Adaptavist/puppet-puppi'
+    dovecot:
+      repo: 'https://github.com/Adaptavist/puppet-dovecot'
+    concat:
+      repo: "https://github.com/Adaptavist/puppet-concat"
+    mailclient:
+      repo: "ssh://git@stash.adaptavist.com:7999/pup/puppet-mailclient.git"
+  symlinks:
+    mailserver: "#{source_dir}"

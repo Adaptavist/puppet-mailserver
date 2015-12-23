@@ -1,0 +1,4 @@
+<%= scope.function_template(["mailserver/postfix/postfix.conf.common.erb"]) -%>
+virtual_maps = hash:/etc/postfix/virtual, regexp:/etc/postfix/virtual-regexp
+virtual_transport = lmtp:unix:private/dovecot-lmtp
+virtual_mailbox_domains = <%= @email_domain %>

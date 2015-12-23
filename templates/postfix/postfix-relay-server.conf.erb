@@ -1,0 +1,30 @@
+<%= scope.function_template(["mailserver/postfix/postfix.conf.common.erb"]) %>
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+inet_interfaces = loopback-only
+relayhost = <%= "[#{scope.lookupvar('mailserver::relay::relay_host')}]:#{scope.lookupvar('mailserver::relay::relay_port')}" %>
+
+# where we get our entropy
+tls_random_source = dev:/dev/urandom
+# first server side details – i.e. when we accept TLS connections
+smtpd_use_tls= no
+# now the important bit – our client TLS details for the upstream
+smtp_use_tls = <%= scope.lookupvar('mailserver::relay::relay_tls') ? "yes" : "no" %>
+#
+smtp_tls_cert_file = <%= "#{scope.lookupvar('mailserver::relay::relay_tls_cert')}" %>
+# use the cert file as the key file as well
+smtp_tls_key_file = <%= "#{scope.lookupvar('mailserver::relay::relay_tls_key')}" %>
+smtp_tls_CAfile = <%= "#{scope.lookupvar('mailserver::relay::relay_tls_ca')}" %>
+# Provide a TLS session cache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+# increase the logging (only during setup)
+# smtp_tls_loglevel = 2
+# and set the per site details (force TLS with specific hosts)
+smtp_tls_per_site = hash:/etc/postfix/tls/tls_sites
+# no for the server
+smtpd_sasl_auth_enable = no
+# but yes when we act as a client
+smtp_sasl_auth_enable = <%= scope.lookupvar('mailserver::relay::relay_auth') ? "yes" : "no" %>
+# where we store the hashed UID and password
+smtp_sasl_password_maps = hash:/etc/postfix/sasl/saslpw
+# security options set to disallow anon auth (but allow plaintext within the TLS session)
+smtp_sasl_security_options = noanonymous

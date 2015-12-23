@@ -1,0 +1,43 @@
+# Listen only on <%= @mail_listen_address %>
+listen = <%= @mail_listen_address %>
+# configure mbox format in /var/mail
+mail_location = mbox:~/mail:INBOX=/var/mail/%u
+mbox_write_locks = fcntl
+
+# use a password file for our user database
+passdb {
+  args = scheme=CRYPT username_format=%u /etc/dovecot/users
+  driver = passwd-file
+}
+
+# drop the domain from the username and lowercase
+auth_username_format = %Ln
+
+# enable the IMAP and LMTP protocols. Mail is delivered using IMTP by postfix
+# IMAP is used for mail retrieval
+protocols = imap lmtp
+service imap-login {
+# client_limit = 1 is necessary for mbox support
+  client_limit = 1
+  inet_listener imaps {
+# port = 0 disables imaps
+    port = 0
+  }
+}
+service lmtp {
+# mbox support
+  client_limit = 1
+# listen only on a UNIX port for LMTP
+  unix_listener /var/spool/postfix/private/dovecot-lmtp {
+    group = postfix
+    mode = 0600
+    user = postfix
+  }
+}
+# disable ssl - it is not needed for local mail
+ssl = no
+# setup the user db to be the simplest thing that can work
+userdb {
+  args = username_format=%u /etc/dovecot/users
+  driver = passwd-file
+}
