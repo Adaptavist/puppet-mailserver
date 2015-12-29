@@ -15,6 +15,6 @@ fixtures:
     concat:
       repo: "https://github.com/Adaptavist/puppet-concat"
     mailclient:
-      repo: "ssh://git@stash.adaptavist.com:7999/pup/puppet-mailclient.git"
+      repo: "https://github.com/Adaptavist/puppet-mailclient.git"
   symlinks:
     mailserver: "#{source_dir}"
