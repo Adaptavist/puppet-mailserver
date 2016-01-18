@@ -1,5 +1,5 @@
 name 'adaptavist-mailserver'
-version '0.1.7'
+version '0.1.8'
 source 'https://github.com/Adaptavist/puppet-mailserver.git'
 author 'adaptavist'
 summary 'Mailserver Module' 

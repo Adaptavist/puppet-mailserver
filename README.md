@@ -1,4 +1,5 @@
 # MailServer Module
+[![Build Status](https://travis-ci.org/Adaptavist/puppet-mailserver.svg?branch=master)](https://travis-ci.org/Adaptavist/puppet-mailserver)
 
 ## Overview
 
